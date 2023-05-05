@@ -11,6 +11,7 @@ const PrimaryButton = ({ onPress, label, style, labelStyle }: any) => {
                               backgroundColor: theme.colors.primary,
                               paddingHorizontal: 32,
                               height: 52,
+                              width: 300,
                               borderRadius: 100,
                               alignItems: "center",
                               justifyContent: "center",
@@ -20,7 +21,7 @@ const PrimaryButton = ({ onPress, label, style, labelStyle }: any) => {
                   <Text
                         style={[
                               {
-                                    fontSize: 16, fontWeight: "500", color: theme.colors.background
+                                    fontSize: 16, fontWeight: "700", color: theme.colors.background
                               },
                               labelStyle
                         ]}>

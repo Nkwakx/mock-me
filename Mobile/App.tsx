@@ -5,22 +5,25 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store } from './app/common/store';
 import Navigation from './navigation';
-import { Provider as PaperProvider, Provider } from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider as ReduxProvider } from 'react-redux';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   let persister = persistStore(store)
 
-    return (
-      <PaperProvider>
-        <SafeAreaProvider>
+  return (
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <GestureHandlerRootView>
         <ReduxProvider store={store}>
-          <PersistGate persistor={persister}> 
-            <Navigation />
-           </PersistGate> 
+          <PersistGate persistor={persister}>
+            <PaperProvider>
+              <Navigation />
+            </PaperProvider>
+          </PersistGate>
         </ReduxProvider>
         <StatusBar />
-      </SafeAreaProvider>
-      </PaperProvider>
-    );
-  }
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
+  );
+}

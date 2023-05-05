@@ -1,5 +1,5 @@
-import { View, Text, KeyboardAvoidingView, SafeAreaView, TextInput, TouchableOpacity, useWindowDimensions } from 'react-native'
-import React from 'react'
+import { View, KeyboardAvoidingView, SafeAreaView, TextInput, TouchableOpacity, useWindowDimensions, StyleSheet, Text } from 'react-native'
+import React, { useState } from 'react'
 import { AuthStackScreenProps } from '../../navigation/types'
 import { useTheme } from '@react-navigation/native';
 import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
@@ -7,10 +7,40 @@ import PrimaryButton from '../../components/PrimaryButton';
 import Artwork03 from '../../components/artworks/Artwork03';
 import { LOG_IN_SCREEN } from '../../constants/ScreenDisplay';
 import Icons from "@expo/vector-icons/MaterialIcons";
+import { useAppDispatch } from '../../app/common/store';
+import { useLoginMutation } from '../../app/features/api/apiAuthSlice';
+import { setCredentials } from '../../app/features/auth/authSlice';
+import { themes } from '../../constants/Themes';
 
 export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
   const theme = useTheme();
   const dimensions = useWindowDimensions();
+  const dispatch = useAppDispatch();
+  const [login] = useLoginMutation();
+
+  const [PhoneNumber, setPhoneNumber] = useState('');
+  const [Password, setPassword] = useState('');
+  const [errorMessage, seterrorMessage] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      console.log('handleLogin');
+      const userDetails = await login({ PhoneNumber, Password }).unwrap();
+      dispatch(setCredentials(userDetails));
+      setPhoneNumber('');
+      setPassword('');
+    } catch (error: any) {
+      if (error.originalStatus === 400) {
+        seterrorMessage('Missing Username or Password');
+      } else if (error.status === 401) {
+        seterrorMessage('Unauthorised');
+      } else {
+        seterrorMessage('Login Failed');
+      }
+      // errorRef.current.focus()
+    }
+  }
+
   return (
     <KeyboardAvoidingView behavior="position" style={{ flex: 1 }}>
       <SafeAreaView
@@ -75,7 +105,7 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
               style={{ position: "relative", width: "100%" }}
             >
               <TextInput
-                placeholder="Your Email"
+                placeholder="Phone Number"
                 style={{
                   fontSize: 16,
                   fontWeight: "500",
@@ -87,6 +117,7 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
                   backgroundColor: theme.colors.background,
                   width: "100%",
                 }}
+                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
               />
               <Icons
                 name="email"
@@ -105,7 +136,8 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
               style={{ position: "relative", width: "100%" }}
             >
               <TextInput
-                placeholder="Your Password"
+                secureTextEntry={true}
+                placeholder="Password"
                 style={{
                   fontSize: 16,
                   fontWeight: "500",
@@ -116,7 +148,9 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
                   borderRadius: 12,
                   backgroundColor: theme.colors.background,
                   width: "100%",
+                  marginBottom: 16,
                 }}
+                onChangeText={(password) => setPassword(password)}
               />
               <Icons
                 name="lock"
@@ -129,17 +163,51 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
                   opacity: 0.5,
                 }}
               />
+              <View style={styles.forgotPassword}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Register')}
+                >
+                  <Text style={styles.forgot}>Forgot your password?</Text>
+                </TouchableOpacity>
+              </View>
             </Animated.View>
             <Animated.View
               entering={FadeInDown.delay(600).duration(1000).springify()}
             >
               <PrimaryButton
                 label="Log In"
+                onPress={handleLogin}
               />
             </Animated.View>
+            <View style={styles.row}>
+              <Text>Don’t have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.replace('Register')}>
+                <Text style={styles.link}>Sign up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>
   )
 }
+
+const styles = StyleSheet.create({
+  forgotPassword: {
+    width: '100%',
+    alignItems: 'flex-end',
+    marginBottom: 24,
+  },
+  row: {
+    flexDirection: 'row',
+    marginTop: 4,
+  },
+  forgot: {
+    fontSize: 13,
+    color: themes.colors.secondary,
+  },
+  link: {
+    fontWeight: 'bold',
+    color: themes.colors.primary,
+  },
+})
