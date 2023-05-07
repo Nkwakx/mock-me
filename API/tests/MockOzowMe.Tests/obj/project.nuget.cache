@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ke3TC1hD6M+mzB+/ZFyXo0KcRhZG5lwj+3LX+v8a3t+CAa/0KqL0GJUkpjMCvaNROPxWYVQaSQxgGl1BLKo7YA==",
+  "dgSpecHash": "0Lo8ZRYoHSguOr99nsWhBvZKArmyUlFVyKmZ/hsKiIBGHDEZJ+qojVN/hj7vVvH9mNYqTMOwGeCyCjsPMtLSZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\NlakaniploKhumalo\\Desktop\\WorkSpace\\MiniProjects\\API\\tests\\MockOzowMe.Tests\\MockOzowMe.Tests.csproj",
   "expectedPackageFiles": [
@@ -92,7 +92,10 @@
     "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\xunit.core\\2.4.2\\xunit.core.2.4.2.nupkg.sha512",
     "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512",
     "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\xunit.extensibility.execution\\2.4.2\\xunit.extensibility.execution.2.4.2.nupkg.sha512",
-    "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
+    "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512",
+    "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.2\\microsoft.netcore.app.ref.7.0.2.nupkg.sha512",
+    "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.2\\microsoft.windowsdesktop.app.ref.7.0.2.nupkg.sha512",
+    "C:\\Users\\NlakaniploKhumalo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.2\\microsoft.aspnetcore.app.ref.7.0.2.nupkg.sha512"
   ],
   "logs": []
 }

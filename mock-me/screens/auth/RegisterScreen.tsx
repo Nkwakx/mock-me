@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 import { useTheme } from '@react-navigation/native';
 import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
 import PrimaryButton from '../../components/PrimaryButton';
-import { AuthStackScreenProps } from '../../navigation/types';
 import Icons from "@expo/vector-icons/MaterialIcons";
 import Artwork02 from '../../components/artworks/Artwork02';
 import { useAppDispatch } from '../../app/common/store';
 import { useRegisterMutation } from '../../app/features/api/apiAuthSlice';
 import { setCredentials } from '../../app/features/auth/authSlice';
 import { themes } from '../../constants/Themes';
+import { AuthScreenProps } from '../../navigation/types';
 
-export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Login'>) {
+export default function RegisterScreen({ navigation }: AuthScreenProps<"Register">) {
   const theme = useTheme();
   const dimensions = useWindowDimensions();
   const dispatch = useAppDispatch();
@@ -55,15 +55,16 @@ export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Log
         <Animated.View
           entering={FadeInUp.duration(1000).springify()}
           style={{
+            marginTop: 100,
             paddingHorizontal: 24,
             height: 52,
             alignItems: "center",
             flexDirection: "row",
           }}
         >
-          <TouchableOpacity onPress={() => navigation.replace("Home")}>
+          {/* <TouchableOpacity onPress={() => navigation.replace("Login")}>
             <Icons name="arrow-back-ios" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Animated.View>
 
         <Animated.View

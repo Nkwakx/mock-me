@@ -1,8 +1,9 @@
-import { View, KeyboardAvoidingView, SafeAreaView, TextInput, TouchableOpacity, useWindowDimensions, StyleSheet, Text } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,  KeyboardAvoidingView, SafeAreaView, TextInput, useWindowDimensions } from 'react-native'
 import React, { useState } from 'react'
-import { AuthStackScreenProps } from '../../navigation/types'
+import { themes } from '../../constants/Themes'
+import { AuthScreenProps, RootStackScreenProps } from '../../navigation/types'
 import { useTheme } from '@react-navigation/native';
-import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
+import Animated,{ FadeInUp, FadeInDown } from 'react-native-reanimated';
 import PrimaryButton from '../../components/PrimaryButton';
 import Artwork03 from '../../components/artworks/Artwork03';
 import { LOG_IN_SCREEN } from '../../constants/ScreenDisplay';
@@ -10,22 +11,22 @@ import Icons from "@expo/vector-icons/MaterialIcons";
 import { useAppDispatch } from '../../app/common/store';
 import { useLoginMutation } from '../../app/features/api/apiAuthSlice';
 import { setCredentials } from '../../app/features/auth/authSlice';
-import { themes } from '../../constants/Themes';
 
-export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
+export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
   const theme = useTheme();
   const dimensions = useWindowDimensions();
   const dispatch = useAppDispatch();
   const [login] = useLoginMutation();
 
-  const [PhoneNumber, setPhoneNumber] = useState('');
-  const [Password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, seterrorMessage] = useState('');
 
   const handleLogin = async () => {
     try {
       console.log('handleLogin');
-      const userDetails = await login({ PhoneNumber, Password }).unwrap();
+      const userDetails = await login({ phoneNumber, password }).unwrap();
+      console.log('userDetails', userDetails);
       dispatch(setCredentials(userDetails));
       setPhoneNumber('');
       setPassword('');
@@ -54,15 +55,16 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
         <Animated.View
           entering={FadeInUp.duration(1000).springify()}
           style={{
+            marginTop: 100,
             paddingHorizontal: 24,
             height: 52,
             alignItems: "center",
             flexDirection: "row",
           }}
         >
-          <TouchableOpacity onPress={() => navigation.replace("Home")}>
+          {/* <TouchableOpacity onPress={() => navigation.replace("Register")}>
             <Icons name="arrow-back-ios" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </Animated.View>
 
         <Animated.View

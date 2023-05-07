@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { baseUrl, refresh } from "../../connection/env";
 import { logout, setCredentials } from "../auth/authSlice";
-import { User, UserSigninRequest } from "../../../interfaces/user.model";
+import { User } from "../../../interfaces/user.model";
 
 
 const baseQuery = fetchBaseQuery({
@@ -36,8 +36,8 @@ const baseQueryWithAuth = async (arg: any, api: any, extraOptions: any) => {
 };
 export const apiAuthSlice = createApi({
       baseQuery: baseQueryWithAuth,
-      tagTypes: ['auth'],
       endpoints: (builder) => ({}),
+      // tagTypes: ['auth'],
 });
 
 export const authApi = apiAuthSlice.injectEndpoints({
@@ -52,7 +52,7 @@ export const authApi = apiAuthSlice.injectEndpoints({
                         return response.data.user;
                   },
             }),
-            login: builder.mutation<User, UserSigninRequest>({
+            login: builder.mutation({
                   query: (credentials: any) => ({
                         url: 'auth/login',
                         method: 'POST',

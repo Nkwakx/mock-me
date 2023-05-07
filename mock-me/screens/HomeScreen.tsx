@@ -1,15 +1,14 @@
-import { View } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import React from 'react'
 import { RootStackScreenProps } from '../navigation/types';
 import { useTheme } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
-import Artwork01 from '../components/artworks/Artwork01';
-import React from 'react';
-import PrimaryButton from '../components/PrimaryButton';
 import { INTRO_SCREEN_01 } from '../constants/ScreenDisplay';
+import Artwork01 from '../components/artworks/Artwork01';
+import PrimaryButton from '../components/PrimaryButton';
 import ScreenIndicators from '../components/ScreenIndicators';
 
-export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
+export default function HomeScreen({ navigation }: RootStackScreenProps<'RootTabs'>) {
   const theme = useTheme();
   return (
     <SafeAreaView style={{ backgroundColor: theme.colors.card, flex: 1 }}>
@@ -55,3 +54,11 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
     </SafeAreaView>
   )
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
