@@ -13,7 +13,7 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseErrorHandler();
 app.UseCors();
+app.UseErrorHandler();
 app.MapControllers();
 app.Run();

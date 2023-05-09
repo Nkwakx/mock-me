@@ -3,8 +3,8 @@
     public sealed class Transaction: BaseEntity
     {
         [JsonProperty("currency")]
-        //public CurrencyCode Currency { get; set; }
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
+        //public string Currency { get; set; }
         [JsonProperty("amount")]
         public decimal Amount { get; set; }
         [JsonProperty("description")]

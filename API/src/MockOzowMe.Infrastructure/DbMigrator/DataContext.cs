@@ -1,6 +1,6 @@
 ﻿namespace MockOzowMe.Infrastructure.DbMigrator
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IUnitOfWork
     {
         public DataContext()
         {
@@ -21,6 +21,11 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("server=localhost;port=5432;user id=postgres;password=Password@1;database=mockozowme_db");
+        }
+
+        public async Task Save(CancellationToken cancellationToken)
+        {
+            await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

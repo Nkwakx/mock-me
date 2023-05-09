@@ -2,13 +2,15 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import MainLayout from '../layouts/MainLayout'
 import { RegisterPage } from '../pages/auth/RegisterPage'
 import { LoginPage } from '../pages/auth/LoginPage'
+import Home from '../pages/Home/Home'
 
 export default function MainRoutes() {
       const router = createBrowserRouter(
             createRoutesFromElements(
-                  <Route path="/" element={<RegisterPage />}>
-                        <Route path="register" element={<RegisterPage />} />
+                  <Route path="/">
+                        <Route path="/" element={<Home />} />
                         <Route path="login" element={<LoginPage />} />
+                        <Route path="register" element={<RegisterPage />} />
                   </Route>
             )
       )

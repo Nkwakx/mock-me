@@ -8,5 +8,5 @@ export const INTRO_SCREEN_01 = {
     };
     export const LOG_IN_SCREEN = {
       title: "Let's\nGet Started",
-      description: "To login for an account, kindly enter your details",
+      description: "To login into your account, kindly enter your credentials below",
     };

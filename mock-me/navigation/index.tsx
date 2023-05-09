@@ -15,10 +15,10 @@ export default function Navigation() {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-      const user = useAppSelector((state) => state.userState);
+      const user = useAppSelector((state) => state.auth);
       return (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                  {user.access_token == null ? (
+                  {user.access_token != null ? (
                         <Stack.Screen name="Auth" component={AuthNavigator} />
                   ) : (
                         <>

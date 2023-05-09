@@ -1,10 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { refresh } from "../../connection/env";
+import { baseUrl, refresh } from "../../connection/env";
 import { logout, setCredentials } from "../auth/authSlice";
 import { User, UserSigninRequest } from "../../../interfaces/user.model";
 
-const baseUrl = 'https://be73-196-22-246-226.ngrok-free.app/';
 
 const baseQuery = fetchBaseQuery({
       baseUrl,
@@ -14,8 +13,8 @@ const baseQuery = fetchBaseQuery({
             const token = getState().auth.access_token;
             if (token && user) {
                   headers.set('authorization', `${token}`);
-                  await AsyncStorage.setItem('user', JSON.stringify(user));
-                  await AsyncStorage.setItem('token', JSON.stringify(token));
+                  // await AsyncStorage.setItem('user', JSON.stringify(user));
+                  // await AsyncStorage.setItem('token', JSON.stringify(token));
             }
             return headers;
       }

@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet, TouchableOpacity,  KeyboardAvoidingView, SafeAreaView, TextInput, useWindowDimensions } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, SafeAreaView, TextInput, useWindowDimensions } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { themes } from '../../constants/Themes'
 import { AuthScreenProps, RootStackScreenProps } from '../../navigation/types'
 import { useTheme } from '@react-navigation/native';
-import Animated,{ FadeInUp, FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
 import PrimaryButton from '../../components/PrimaryButton';
 import Artwork03 from '../../components/artworks/Artwork03';
 import { LOG_IN_SCREEN } from '../../constants/ScreenDisplay';
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { useAppDispatch } from '../../app/common/store';
-import { useLoginMutation } from '../../app/features/api/apiAuthSlice';
 import { setCredentials } from '../../app/features/auth/authSlice';
+import { useLoginMutation } from '../../app/features/api/apiAuthSlice';
+import axios from 'axios';
 
 export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
   const theme = useTheme();
@@ -22,19 +23,28 @@ export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
   const [password, setPassword] = useState('');
   const [errorMessage, seterrorMessage] = useState('');
 
+  //   useEffect(() => {
+  //     seterrorMessage('')
+  // }, [phoneNumber, password])
+
   const handleLogin = async () => {
     try {
       console.log('handleLogin');
+
       const userDetails = await login({ phoneNumber, password }).unwrap();
-      console.log('userDetails', userDetails);
       dispatch(setCredentials(userDetails));
+      console.log('userDetails', userDetails);
+
       setPhoneNumber('');
       setPassword('');
+
     } catch (error: any) {
       if (error.originalStatus === 400) {
         seterrorMessage('Missing Username or Password');
+
       } else if (error.status === 401) {
         seterrorMessage('Unauthorised');
+
       } else {
         seterrorMessage('Login Failed');
       }
@@ -119,7 +129,10 @@ export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
                   backgroundColor: theme.colors.background,
                   width: "100%",
                 }}
-                onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                onChangeText={(input: string) => {
+                  setPhoneNumber(input);
+                }}
+
               />
               <Icons
                 name="email"
@@ -152,7 +165,10 @@ export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
                   width: "100%",
                   marginBottom: 16,
                 }}
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={(input: string) => {
+                  setPassword(input);
+                }}
+
               />
               <Icons
                 name="lock"
