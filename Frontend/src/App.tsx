@@ -1,13 +1,13 @@
 import MainRoutes from './routes/MainRoutes';
-
-import 'primereact/resources/themes/lara-light-indigo/theme.css'; //theme
-import 'primereact/resources/primereact.min.css'; //core css
-import 'primeicons/primeicons.css'; //icons
-import 'primeflex/primeflex.css'; // flex
-        
+import { store } from './app/common/store';
+import { Provider as ReduxProvider } from 'react-redux';
 
 function App() {
-  return <MainRoutes/>
+  return (
+    // <ReduxProvider store={store}>
+      <MainRoutes />
+    // </ReduxProvider>
+  )
 }
 
 export default App

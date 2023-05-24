@@ -2,10 +2,9 @@
 {
     public static class ServiceExtension
     {
-        public static void ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigurePersistence(this IServiceCollection services, IConfiguration configuration, string connectionString)
         {
 
-            var connectionString = configuration.GetConnectionString("Data:ConnectionStrings:postgress");
             services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(option => option.UseNpgsql(connectionString));
             services.Configure<ApplicationConfig>(configuration.GetSection("AppConfig:AWS"));
             services.Configure<CookiePolicyOptions>(options =>

@@ -4,7 +4,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { apiAuthSlice } from "../features/api/apiAuthSlice";
 import { persistReducer } from "redux-persist";
 import authSlice from "../features/auth/authSlice";
-import  usersSlice  from "../features/user/userSlice";
+import usersSlice from "../features/user/userSlice";
 
 // const persistConfig = {
 //       key: 'root',
@@ -19,8 +19,10 @@ import  usersSlice  from "../features/user/userSlice";
 
 export const store = configureStore({
       // reducer: persistedReducer,
-      auth: authSlice,
-      users: usersSlice,
+      reducer: {
+            auth: authSlice,
+            users: usersSlice,
+      }, middleware: (getDefault) => getDefault().concat(),
       // devTools: process.env.NODE_ENV === 'development',
       // middleware: (getDefaultMiddleware) =>
       //       getDefaultMiddleware({

@@ -1,5 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.ConfigurePersistence(builder.Configuration);
+var appConfig = new AppConfig(builder.Configuration);
+builder.Services.ConfigurePersistence(builder.Configuration, appConfig.ToString());
 builder.Services.ConfigureApplication();
 
 builder.Services.ConfigureApiBehavior();
